@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore';
 
-import { db } from './firebase';
+import { db } from '@/firebase';
+import AppRouter from '@/components/AppRouter';
 
 interface AppProps {}
 
@@ -15,6 +16,6 @@ const App: FC<AppProps> = ({}) => {
 		getAllData();
 	}, []);
 
-	return <div>123</div>;
+	return <AppRouter />;
 };
 export default App;
