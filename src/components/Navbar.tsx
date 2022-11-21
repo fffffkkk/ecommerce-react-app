@@ -66,7 +66,12 @@ const Navbar: FC<NavbarProps> = ({}) => {
 							<span className='font-bold text-lg'>8 Items</span>
 							<span className='text-info'>Subtotal: $999</span>
 							<div className='card-actions'>
-								<button className='btn btn-primary btn-block'>View cart</button>
+								<button
+									className='btn btn-primary btn-block bg-sky-400 border-none hover:bg-sky-600'
+									onClick={() => navigate('/cart')}
+								>
+									View cart
+								</button>
 							</div>
 						</div>
 					</div>
@@ -80,18 +85,25 @@ const Navbar: FC<NavbarProps> = ({}) => {
 					</label>
 					<ul
 						tabIndex={0}
-						className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52'
+						className='menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52 '
 					>
 						<li>
-							<Link to={`/profile-user/${1}`} className='justify-between'>
+							<Link
+								className='active:bg-sky-600 justify-between'
+								to={`/profile-user/${1}`}
+							>
 								Profile
 							</Link>
 						</li>
 						<li>
-							<Link to='/settings'>Settings</Link>
+							<Link className='active:bg-sky-600' to='/settings'>
+								Settings
+							</Link>
 						</li>
 						<li>
-							<Link to='/'>Logout</Link>
+							<Link className='active:bg-sky-600' to='/'>
+								Logout
+							</Link>
 						</li>
 					</ul>
 				</div>
