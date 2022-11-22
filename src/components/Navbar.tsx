@@ -96,6 +96,14 @@ const Navbar: FC<NavbarProps> = ({}) => {
 							</Link>
 						</li>
 						<li>
+							<Link
+								className='active:bg-sky-600 justify-between'
+								to='/create-book'
+							>
+								Add new Book
+							</Link>
+						</li>
+						<li>
 							<Link className='active:bg-sky-600' to='/settings'>
 								Settings
 							</Link>

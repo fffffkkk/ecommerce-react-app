@@ -5,6 +5,6 @@ interface MainLayoutProps {
 }
 
 const MainLayout: FC<MainLayoutProps> = ({ children }) => {
-	return <div className=' max-w-[1400px] mx-auto mt-2'>{children}</div>;
+	return <div className='w-screen max-w-[1400px] mx-auto mt-2'>{children}</div>;
 };
 export default MainLayout;
