@@ -1,36 +1,23 @@
-import CardLayout from '@/containers/CardLayout';
 import React, { FC } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import Cart from '@/components/Cart';
+import Search from '@/components/Search';
+import Card from '@/components/Card';
+import CardDetail from '@/components/CardDetail';
+import BookForm from '@/components/BookForm';
 
 interface CardsProps {}
 
 const Cards: FC<CardsProps> = ({}) => {
 	return (
-		<CardLayout>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-			<div className='w-[100px] h-[100px] bg-slate-600 justify-self-center'>
-				Cards
-			</div>
-		</CardLayout>
+		<Routes>
+			<Route path='/search' element={<Search />} />
+			<Route path='/cart' element={<Cart />} />
+			<Route path='/create-book' element={<BookForm />} />
+			<Route path='/card-detail/:cardDetailID' element={<CardDetail />} />
+			<Route path='*' element={<Card />} />
+		</Routes>
 	);
 };
 export default Cards;
