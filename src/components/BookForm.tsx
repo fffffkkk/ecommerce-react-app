@@ -28,6 +28,7 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 	const handleSubmit = async () => {
+		if (!formData.imageURL) return
 		if (formData.price.match(/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/)) {
 			await addBook(formData);
 			navigate('/');
@@ -59,6 +60,8 @@ const BookForm: FC<BookFormProps> = ({}) => {
 
 		file && uploadFile();
 	}, [file]);
+
+	console.log(formData);
 
 	return (
 		<div className='flex flex-col items-center justify-center mt-10 gap-2'>
