@@ -5,4 +5,5 @@ export interface IBook {
 	author: string;
 	topics: string[];
 	release: string;
+	imageURL: string;
 }

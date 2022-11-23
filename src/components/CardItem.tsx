@@ -16,7 +16,7 @@ const CardItem: FC<CardItemProps> = ({ data }) => {
 			onClick={() => navigate(`/card-detail/${data.id}`)}
 		>
 			<figure>
-				<img src='https://placeimg.com/400/225/arch' alt='Shoes' />
+				<img src={data.imageURL} alt='Shoes' />
 			</figure>
 			<div className='card-body'>
 				<h2 className='card-title'>{data.title}</h2>
@@ -26,7 +26,9 @@ const CardItem: FC<CardItemProps> = ({ data }) => {
 				</p>
 				<p>Дата выпуска: {data.release}</p>
 				<div className='card-actions justify-end'>
-					<button className='btn btn-primary'>Buy Now</button>
+					<button className='btn btn-primary bg-sky-400 active:bg-sky-500 hover:bg-sky-500 border-none'>
+						Buy Now
+					</button>
 				</div>
 			</div>
 		</div>
