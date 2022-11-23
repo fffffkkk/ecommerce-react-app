@@ -1,9 +1,8 @@
-import { IParameters } from './IParameters';
-
 export interface IBook {
 	title: string;
 	about: string;
 	article: number;
-	parameters: IParameters;
+	author: string;
+	topics: string[];
 	release: string;
 }

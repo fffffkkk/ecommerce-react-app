@@ -1,5 +1,5 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import {collection,doc,getDoc,getDocs} from "firebase/firestore";
+import {addDoc, collection,doc,getDoc,getDocs, serverTimestamp} from "firebase/firestore";
 
 import { db } from '@/firebase';
 import { FIX_ME } from '@/types/fixThisType';
@@ -25,7 +25,19 @@ export const bookAPI = createApi({
         }
 			},
 		}),
+		addBook: builder.mutation({
+			// @ts-ignore !FIX_ME!
+			async queryFn(data: FIX_ME) {
+				try {
+					await addDoc(collection(db, 'books'), {
+						...data, 
+					})
+				} catch (error) {
+					return {error: error}
+				}
+			}
+		})
 	}),
 });
 
-export const { useGetAllBooksQuery } = bookAPI;
+export const { useGetAllBooksQuery, useAddBookMutation } = bookAPI;

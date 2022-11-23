@@ -1,11 +1,11 @@
 import React, { FC, useState, useEffect } from 'react';
 
 import { FIX_ME } from '@/types/fixThisType';
-import { IBook } from '@/models/IBook';
-import { Timestamp } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '@/firebase';
-import { log } from 'console';
+import Select from './UI/Select';
+import { useAddBookMutation } from '@/services/bookService';
+import { useNavigate } from 'react-router-dom';
 
 interface BookFormProps {}
 
@@ -16,27 +16,26 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		about: '',
 		article: Date.now(),
 		imageURL: '',
-		parameters: {
-			author: 'Some Author',
-			chapter: [''],
-		},
+		author: '',
+		topics: [''],
 		release: '2022',
 	});
+	const [addBook] = useAddBookMutation();
+	const navigate = useNavigate();
 
 	const handleChange = (e: FIX_ME) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
-	const handleSubmit = () => {};
+	const handleSubmit = async () => {
+		await addBook(formData);
+		navigate('/');
+	};
 
 	useEffect(() => {
 		const uploadFile = () => {
-			if (!file || !formData.title || !formData.about) {
-				console.log('123');
-				return;
-			}
 			// @ts-ignore
 			const storageRef = ref(storage, file.name);
-			const uploadTask = uploadBytesResumable(storageRef, file);
+			const uploadTask = uploadBytesResumable(storageRef, file!);
 
 			uploadTask.on(
 				'state_changed',
@@ -52,10 +51,8 @@ const BookForm: FC<BookFormProps> = ({}) => {
 			);
 		};
 
-		uploadFile();
+		file && uploadFile();
 	}, [file]);
-
-	console.log(formData);
 
 	return (
 		<div className='flex flex-col items-center justify-center mt-10 gap-2'>
@@ -76,6 +73,18 @@ const BookForm: FC<BookFormProps> = ({}) => {
 					name='about'
 					onChange={(e) => handleChange(e)}
 				/>
+			</label>
+			<label className='flex flex-col'>
+				Автор:
+				<input
+					type='text'
+					className='input w-full max-w-xs bg-sky-300'
+					name='author'
+					onChange={(e) => handleChange(e)}
+				/>
+			</label>
+			<label>
+				<Select name='topics' change={handleChange} />
 			</label>
 			<label className='flex flex-col text-center mt-2'>
 				Загрузите обложку:
