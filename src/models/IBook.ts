@@ -6,4 +6,5 @@ export interface IBook {
 	topics: string[];
 	release: string;
 	imageURL: string;
+	price: string;
 }
