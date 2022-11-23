@@ -24,6 +24,8 @@ const CardItem: FC<CardItemProps> = ({ data }) => {
 					{data.about.slice(0, 98)}
 					<span className='font-bold'>...</span>
 				</p>
+				<p>{data.price} RUB.</p>
+				<p>{data.topics}</p>
 				<p>Дата выпуска: {data.release}</p>
 				<div className='card-actions justify-end'>
 					<button className='btn btn-primary bg-sky-400 active:bg-sky-500 hover:bg-sky-500 border-none'>
