@@ -35,7 +35,6 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		} else {
 			alert('enter valid price');
 		}
-		
 	};
 
 	useEffect(() => {
@@ -62,7 +61,6 @@ const BookForm: FC<BookFormProps> = ({}) => {
 	}, [file]);
 
 	console.log(formData);
-
 	return (
 		<div className='flex flex-col items-center justify-center mt-10 gap-2'>
 			<label className='flex flex-col'>
