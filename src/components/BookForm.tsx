@@ -19,6 +19,7 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		author: '',
 		topics: [''],
 		release: '2022',
+		price: '',
 	});
 	const [addBook] = useAddBookMutation();
 	const navigate = useNavigate();
@@ -27,8 +28,13 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 	const handleSubmit = async () => {
-		await addBook(formData);
-		navigate('/');
+		if (!formData.imageURL) return
+		if (formData.price.match(/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/)) {
+			await addBook(formData);
+			navigate('/');
+		} else {
+			alert('enter valid price');
+		}
 	};
 
 	useEffect(() => {
@@ -54,6 +60,7 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		file && uploadFile();
 	}, [file]);
 
+	console.log(formData);
 	return (
 		<div className='flex flex-col items-center justify-center mt-10 gap-2'>
 			<label className='flex flex-col'>
@@ -71,6 +78,16 @@ const BookForm: FC<BookFormProps> = ({}) => {
 					type='text'
 					className='input w-full max-w-xs bg-sky-300'
 					name='about'
+					onChange={(e) => handleChange(e)}
+				/>
+			</label>
+			<label className='flex flex-col'>
+				Цена:
+				<input
+					type='text'
+					className='input w-full max-w-xs bg-sky-300'
+					name='price'
+					pattern='/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/'
 					onChange={(e) => handleChange(e)}
 				/>
 			</label>

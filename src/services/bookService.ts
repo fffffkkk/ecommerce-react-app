@@ -8,6 +8,7 @@ import { firebaseAllBooksResponse } from '@/models/model';
 export const bookAPI = createApi({
 	reducerPath: 'bookAPI',
 	baseQuery: fakeBaseQuery(),
+	tagTypes: ['Book'],
 	endpoints: (builder) => ({
 		getAllBooks: builder.query<FIX_ME, FIX_ME>({
 			async queryFn() {
@@ -24,6 +25,7 @@ export const bookAPI = createApi({
           return { error };
         }
 			},
+			providesTags: ['Book']
 		}),
 		addBook: builder.mutation({
 			// @ts-ignore !FIX_ME!
@@ -32,10 +34,12 @@ export const bookAPI = createApi({
 					await addDoc(collection(db, 'books'), {
 						...data, 
 					})
+					return {data: 'ok'}
 				} catch (error) {
 					return {error: error}
 				}
-			}
+			},
+			invalidatesTags: ['Book'],
 		})
 	}),
 });
