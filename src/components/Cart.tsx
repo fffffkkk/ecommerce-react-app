@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 
 import { useTypedSelector } from '@/hooks/useTypedSelector';
 import CartItem from './CartItem';
-import { useActions } from '@/hooks/useActions';
 
 interface CartProps {}
 
