@@ -9,8 +9,11 @@ interface CartItemProps {
 }
 
 const CartItem: FC<CartItemProps> = ({ data }) => {
-	const { removeItem } = useActions();
-	console.log('re-render');
+	const { removeItem, totalPrice } = useActions();
+	const handleRemoveItem = () => {
+		removeItem({ id: data.id });
+		totalPrice();
+	};
 
 	return (
 		<div className='alert alert-success shadow-lg mt-5 bg-sky-400'>
@@ -26,7 +29,7 @@ const CartItem: FC<CartItemProps> = ({ data }) => {
 						<p className='block'>{data.price} RUB.</p>
 					</div>
 				</div>
-				<button onClick={() => removeItem({ id: data.id })}>
+				<button onClick={handleRemoveItem}>
 					<TrashIcon className='cursor-pointer hover:fill-red-500 w-[40px] h-[40px]' />
 				</button>
 			</div>
