@@ -1,16 +1,15 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { ReactComponent as Logo } from '@/assets/icons/book-svgrepo-com.svg';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useActions } from '@/hooks/useActions';
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = ({}) => {
 	const navigate = useNavigate();
-	const { cart } = useTypedSelector((state) => state);
-
-	console.log(cart);
+	const { cart, total } = useTypedSelector((state) => state.cart);
 
 	return (
 		<div className='navbar bg-sky-400 rounded-2xl'>
@@ -70,7 +69,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
 					>
 						<div className='card-body'>
 							<span className='font-bold text-lg'>{cart.length} Items</span>
-							<span className='text-info'>Subtotal: $999</span>
+							<span className='text-info'>
+								Общая цена: {total.toFixed(2)} руб.
+							</span>
 							<div className='card-actions'>
 								{cart.length ? (
 									<button
