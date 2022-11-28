@@ -3,7 +3,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { FIX_ME } from '@/types/fixThisType';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '@/firebase';
-import Select from './UI/Select';
+import Select from './Select';
 import { useAddBookMutation } from '@/services/bookService';
 import { useNavigate } from 'react-router-dom';
 
@@ -28,7 +28,10 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 	const handleSubmit = async () => {
-		if (!formData.imageURL) return
+		if (!formData.imageURL || (Number(formData.price) <= 1 && Number(formData.price) >= 5000)) {
+			alert('enter price [1; 5000]')
+			return
+		}
 		if (formData.price.match(/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/)) {
 			await addBook(formData);
 			navigate('/');
@@ -60,7 +63,6 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		file && uploadFile();
 	}, [file]);
 
-	console.log(formData);
 	return (
 		<div className='flex flex-col items-center justify-center mt-10 gap-2'>
 			<label className='flex flex-col'>
@@ -87,7 +89,6 @@ const BookForm: FC<BookFormProps> = ({}) => {
 					type='text'
 					className='input w-full max-w-xs bg-sky-300'
 					name='price'
-					pattern='/^(\d*([.,](?=\d{3}))?\d+)+((?!\2)[.,]\d\d)?$/'
 					onChange={(e) => handleChange(e)}
 				/>
 			</label>

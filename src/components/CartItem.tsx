@@ -3,19 +3,16 @@ import React, { FC } from 'react';
 import { firebaseAllBooksResponse } from '@/models/model';
 import { ReactComponent as TrashIcon } from '@/assets/icons/trash-svgrepo-com.svg';
 import { useActions } from '@/hooks/useActions';
-import { useTypedSelector } from '@/hooks/useTypedSelector';
 
 interface CartItemProps {
 	data: firebaseAllBooksResponse;
 }
 
 const CartItem: FC<CartItemProps> = ({ data }) => {
-	const { removeItem } = useActions();
-	const { cart } = useTypedSelector((state) => state);
-	const handleRemove = () => {
+	const { removeItem, totalPrice } = useActions();
+	const handleRemoveItem = () => {
 		removeItem({ id: data.id });
-		console.log(typeof cart[0].id);
-		console.log('yes', cart);
+		totalPrice();
 	};
 
 	return (
@@ -32,10 +29,9 @@ const CartItem: FC<CartItemProps> = ({ data }) => {
 						<p className='block'>{data.price} RUB.</p>
 					</div>
 				</div>
-				<TrashIcon
-					className='cursor-pointer hover:fill-red-500 w-[40px] h-[40px]'
-					onClick={handleRemove}
-				/>
+				<button onClick={handleRemoveItem}>
+					<TrashIcon className='cursor-pointer hover:fill-red-500 w-[40px] h-[40px]' />
+				</button>
 			</div>
 		</div>
 	);

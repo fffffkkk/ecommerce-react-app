@@ -1,16 +1,24 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { signOut } from 'firebase/auth';
 
 import { ReactComponent as Logo } from '@/assets/icons/book-svgrepo-com.svg';
 import { useTypedSelector } from '@/hooks/useTypedSelector';
+import { useActions } from '@/hooks/useActions';
+import { auth } from '@/firebase';
 
 interface NavbarProps {}
 
 const Navbar: FC<NavbarProps> = ({}) => {
 	const navigate = useNavigate();
-	const { cart } = useTypedSelector((state) => state);
-
-	console.log(cart);
+	const { cart, total } = useTypedSelector((state) => state.cart);
+	const { imageURL } = useTypedSelector((state) => state.user.user);
+	const { removeUser } = useActions();
+	const handleSignOut = () => {
+		signOut(auth)
+			.then(() => removeUser())
+			.catch((error) => console.log(error));
+	};
 
 	return (
 		<div className='navbar bg-sky-400 rounded-2xl'>
@@ -70,7 +78,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
 					>
 						<div className='card-body'>
 							<span className='font-bold text-lg'>{cart.length} Items</span>
-							<span className='text-info'>Subtotal: $999</span>
+							<span className='text-info'>
+								Общая цена: {total.toFixed(2)} руб.
+							</span>
 							<div className='card-actions'>
 								{cart.length ? (
 									<button
@@ -92,7 +102,11 @@ const Navbar: FC<NavbarProps> = ({}) => {
 					{/* use icon */}
 					<label tabIndex={0} className='btn btn-ghost btn-circle avatar'>
 						<div className='w-10 rounded-full'>
-							<img src='https://placeimg.com/80/80/people' />
+							{imageURL ? (
+								<img src={imageURL} alt='user-img' />
+							) : (
+								<div className='w-full h-full bg-slate-500'></div>
+							)}
 						</div>
 					</label>
 					<ul
@@ -121,9 +135,9 @@ const Navbar: FC<NavbarProps> = ({}) => {
 							</Link>
 						</li>
 						<li>
-							<Link className='active:bg-sky-600' to='/'>
+							<button className='active:bg-sky-600' onClick={handleSignOut}>
 								Logout
-							</Link>
+							</button>
 						</li>
 					</ul>
 				</div>

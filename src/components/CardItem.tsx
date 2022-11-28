@@ -12,8 +12,8 @@ interface CardItemProps {
 
 const CardItem: FC<CardItemProps> = ({ data }) => {
 	const navigate = useNavigate();
-	const { addItem } = useActions();
-	const { cart } = useTypedSelector((state) => state);
+	const { addItem, totalPrice } = useActions();
+	const { cart } = useTypedSelector((state) => state.cart);
 
 	const isExistsInCart = cart.some((p) => p.id === data.id);
 
@@ -21,6 +21,7 @@ const CardItem: FC<CardItemProps> = ({ data }) => {
 		e.stopPropagation();
 		if (!isExistsInCart) {
 			addItem(data);
+			totalPrice();
 		}
 	};
 
