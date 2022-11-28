@@ -41,6 +41,13 @@ export const userSlice = createSlice({
 		changeSaveUser(state) {
 			state.toggleSaveUser = !state.toggleSaveUser;
 		},
+		changeImagUser(state, action: PayloadAction<{ imageURL: string }>) {
+			state.user.imageURL = action.payload.imageURL;
+			localStorage.setItem(
+				USER_AUTH_KEY,
+				JSON.stringify({ imageURL: state.user.imageURL })
+			);
+		},
 	},
 });
 
