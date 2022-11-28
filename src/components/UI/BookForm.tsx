@@ -3,7 +3,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { FIX_ME } from '@/types/fixThisType';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { storage } from '@/firebase';
-import Select from './UI/Select';
+import Select from './Select';
 import { useAddBookMutation } from '@/services/bookService';
 import { useNavigate } from 'react-router-dom';
 

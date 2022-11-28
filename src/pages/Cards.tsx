@@ -5,7 +5,7 @@ import Cart from '@/components/Cart';
 import Search from '@/components/Search';
 import Card from '@/components/Card';
 import CardDetail from '@/components/CardDetail';
-import BookForm from '@/components/BookForm';
+import BookForm from '@/components/UI/BookForm';
 
 interface CardsProps {}
 
