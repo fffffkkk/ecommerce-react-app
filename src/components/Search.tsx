@@ -1,22 +1,23 @@
 import React, { FC, useEffect, useState } from 'react';
 
 import { useGetAllBooksQuery } from '@/services/bookService';
-import CardItem from './CardItem';
-import { FIX_ME } from '@/types/fixThisType';
+import { firebaseAllBooksResponse } from '@/models/model';
 import Spinner from './Spinner';
+import CardItem from './CardItem';
+import CardLayout from '@/containers/CardLayout';
 
 interface SearchProps {}
 
 const Search: FC<SearchProps> = ({}) => {
-	const [text, setText] = useState('');
-	const [data, setData] = useState([]);
+	const [search, setSearch] = useState('');
+	const [data, setData] = useState<firebaseAllBooksResponse[]>();
 	// @ts-ignore
 	const { isLoading, data: books } = useGetAllBooksQuery();
 	const handleSearch = () => {
 		if (books) {
 			setData(
-				books.filter((book: FIX_ME) =>
-					book.title.toLowerCase().includes(text.toLowerCase())
+				books.filter((book: firebaseAllBooksResponse) =>
+					book.title.toLowerCase().includes(search.toLowerCase())
 				)
 			);
 		}
@@ -24,18 +25,18 @@ const Search: FC<SearchProps> = ({}) => {
 
 	useEffect(() => {
 		handleSearch();
-	}, [text]);
+	}, [search]);
 
 	if (isLoading) return <Spinner />;
 
 	return (
-		<div>
+		<div className='flex flex-col items-center mt-10'>
 			<input
-				type='text'
+				type='search'
 				className='input w-full max-w-xs bg-sky-300'
-				onChange={(e) => setText(e.target.value)}
+				onChange={(e) => setSearch(e.target.value)}
 			/>
-			{data && data.map((item) => <h1 key={item.id}>{item.title}</h1>)}
+			{data && <CardLayout>{data.map((item) => <CardItem data={item} key={item.id}/>)}</CardLayout>}
 		</div>
 	);
 };
