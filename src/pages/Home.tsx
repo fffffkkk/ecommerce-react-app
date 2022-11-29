@@ -12,8 +12,6 @@ interface HomeProps {}
 const Home: FC<HomeProps> = ({}) => {
 	const { isAuth } = useAuth();
 
-	console.log(isAuth);
-
 	return isAuth ? (
 		<MainLayout>
 			<Navbar />
