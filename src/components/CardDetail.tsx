@@ -16,7 +16,7 @@ const CardDetail: FC<CardDetailProps> = ({}) => {
 	const { data } = useGetBookByIDQuery(cardDetailID);
 
 	useEffect(() => {
-		const unSub = onSnapshot(doc(db, 'books', cardDetailID), (doc) => {
+		const unSub = onSnapshot(doc(db, `books/${cardDetailID}`), (doc) => {
 			doc.exists() && setComments(doc.data().comments);
 		});
 		return () => {
