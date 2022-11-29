@@ -1,16 +1,30 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { useGetBookByIDQuery } from '@/services/bookService';
+import { doc, onSnapshot } from 'firebase/firestore';
+import { db } from '@/firebase';
+import Spinner from './Spinner';
+import Comment from './Comment';
+import { IComment } from '@/models/IComment';
 
 interface CardDetailProps {}
 
 const CardDetail: FC<CardDetailProps> = ({}) => {
 	const { cardDetailID } = useParams();
+	const [comments, setComments] = useState<IComment[]>();
 	const { data } = useGetBookByIDQuery(cardDetailID);
 
-	console.log(data);
-	return (
+	useEffect(() => {
+		const unSub = onSnapshot(doc(db, 'books', cardDetailID), (doc) => {
+			doc.exists() && setComments(doc.data().comments);
+		});
+		return () => {
+			unSub();
+		};
+	}, []);
+
+	return data && cardDetailID ? (
 		<div className='mt-10 flex gap-20'>
 			<div className='gap-10'>
 				<img
@@ -29,8 +43,15 @@ const CardDetail: FC<CardDetailProps> = ({}) => {
 			</div>
 			<div className=''>
 				<h1 className='font-bold text-2xl'>Комментарии</h1>
+				{comments ? (
+					<Comment data={comments} id={cardDetailID} />
+				) : (
+					<h1 className='font-bold text-red-500'>Пока нет комментариев</h1>
+				)}
 			</div>
 		</div>
+	) : (
+		<Spinner />
 	);
 };
 export default CardDetail;

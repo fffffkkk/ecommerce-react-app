@@ -1,3 +1,5 @@
+import { IComment } from './IComment';
+
 export interface IBook {
 	title: string;
 	about: string;
@@ -7,4 +9,5 @@ export interface IBook {
 	release: string;
 	imageURL: string;
 	price: string;
+	comments: IComment[];
 }
