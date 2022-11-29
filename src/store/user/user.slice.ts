@@ -24,6 +24,7 @@ export const userSlice = createSlice({
 			state.user.id = action.payload.id;
 			state.user.email = action.payload.email;
 			state.user.password = action.payload.password;
+			state.user.imageURL = '';
 
 			if (state.toggleSaveUser) {
 				localStorage.setItem(USER_AUTH_KEY, JSON.stringify(state.user));
@@ -33,6 +34,7 @@ export const userSlice = createSlice({
 			state.user.id = '';
 			state.user.email = '';
 			state.user.password = '';
+			state.user.imageURL = '';
 
 			if (state.toggleSaveUser) {
 				localStorage.setItem(USER_AUTH_KEY, JSON.stringify(state.user));

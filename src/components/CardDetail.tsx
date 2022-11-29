@@ -25,7 +25,7 @@ const CardDetail: FC<CardDetailProps> = ({}) => {
 	}, []);
 
 	return data && cardDetailID ? (
-		<div className='mt-10 flex gap-20'>
+		<div className='mt-10 flex gap-20 w-full'>
 			<div className='gap-10'>
 				<img
 					className='w-[250px] h-[250px] rounded-full'
@@ -41,7 +41,7 @@ const CardDetail: FC<CardDetailProps> = ({}) => {
 					<p>{data.release} г.</p>
 				</div>
 			</div>
-			<div className=''>
+			<div className='w-full'>
 				<h1 className='font-bold text-2xl'>Комментарии</h1>
 				{comments ? (
 					<Comment data={comments} id={cardDetailID} />
