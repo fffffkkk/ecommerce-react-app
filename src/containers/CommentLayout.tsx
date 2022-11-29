@@ -5,6 +5,10 @@ interface CommentLayoutProps {
 }
 
 const CommentLayout: FC<CommentLayoutProps> = ({ children }) => {
-	return <div className='w-full g-full flex flex-col gap-5'>{children}</div>;
+	return (
+		<div className='w-full g-full flex flex-col gap-2 overflow-y-scroll h-[500px]'>
+			{children}
+		</div>
+	);
 };
 export default CommentLayout;

@@ -37,7 +37,7 @@ const Comment: FC<CommentProps> = ({ data, id }) => {
 	};
 
 	return (
-		<div>
+		<div className='w-full'>
 			<form onClick={handleSubmit} className='flex'>
 				<input
 					type='text'

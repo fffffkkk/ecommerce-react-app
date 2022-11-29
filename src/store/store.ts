@@ -3,7 +3,7 @@ import { setupListeners } from '@reduxjs/toolkit/dist/query';
 
 import { bookAPI } from '@/services/bookService';
 import { cartReducer } from './cart/cart.slice';
-import { userReducer } from './cart/user.slice';
+import { userReducer } from './user/user.slice';
 
 export const rootReducer = combineReducers({
 	[bookAPI.reducerPath]: bookAPI.reducer,

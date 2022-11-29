@@ -2,7 +2,7 @@ import { bindActionCreators } from '@reduxjs/toolkit';
 import { useDispatch } from 'react-redux';
 
 import { cartAction } from '@/store/cart/cart.slice';
-import { userAction } from '@/store/cart/user.slice';
+import { userAction } from '@/store/user/user.slice';
 
 const allActions = {
 	...cartAction,
