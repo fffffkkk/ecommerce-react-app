@@ -1,5 +1,5 @@
 import { createApi, fakeBaseQuery } from '@reduxjs/toolkit/query/react';
-import {addDoc, collection, getDocs} from "firebase/firestore";
+import {addDoc, collection, getDocs, getDoc, doc} from "firebase/firestore";
 
 import { db } from '@/firebase';
 import { FIX_ME } from '@/types/fixThisType';
@@ -8,7 +8,7 @@ import { firebaseAllBooksResponse } from '@/models/model';
 export const bookAPI = createApi({
 	reducerPath: 'bookAPI',
 	baseQuery: fakeBaseQuery(),
-	tagTypes: ['Book'],
+	tagTypes: ['Books'],
 	endpoints: (builder) => ({
 		getAllBooks: builder.query<FIX_ME, FIX_ME>({
 			async queryFn() {
@@ -25,7 +25,20 @@ export const bookAPI = createApi({
           return { error };
         }
 			},
-			providesTags: ['Book']
+			providesTags: ['Books']
+		}),
+		getBookByID: builder.query<FIX_ME, FIX_ME>({
+			async queryFn(id: string) {
+				try {
+          const docRef = doc(db, "books", id);
+					const docSnap = await getDoc(docRef);
+          
+          return {data: docSnap.data()}
+        } catch (error) {
+          return { error };
+        }
+			},
+			providesTags: ['Books']
 		}),
 		addBook: builder.mutation({
 			// @ts-ignore !FIX_ME!
@@ -39,9 +52,9 @@ export const bookAPI = createApi({
 					return {error: error}
 				}
 			},
-			invalidatesTags: ['Book'],
+			invalidatesTags: ['Books'],
 		})
 	}),
 });
 
-export const { useGetAllBooksQuery, useAddBookMutation } = bookAPI;
+export const { useGetAllBooksQuery, useAddBookMutation, useGetBookByIDQuery } = bookAPI;

@@ -20,6 +20,7 @@ const BookForm: FC<BookFormProps> = ({}) => {
 		topics: [''],
 		release: '2022',
 		price: '',
+		comments: [{author: ['', ''], text: ''}],
 	});
 	const [addBook] = useAddBookMutation();
 	const navigate = useNavigate();
